@@ -7,7 +7,7 @@ use Drupal\editor\Plugin\EditorBase;
 use Drupal\editor\Entity\Editor;
 
 /**
- * Defines BUEditor as an Editor plugin.
+ * Defines AceEditor as an Editor plugin.
  *
  * @Editor(
  *   id = "ace_editor",
@@ -83,8 +83,13 @@ class AceEditor extends EditorBase {
 
 
     public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor){
-
-        $form[] = $this->getDefaultSettings();
+        $form = array();
+        $form['date_fieldset'] = array(
+            '#type' => 'fieldset',
+            '#title' => t('Ace Editor Settings'),
+            '#collapsible' => TRUE,
+        );
+        $form['date_fieldset'][] = $this->getDefaultSettings();
         return $form;
     }
 
