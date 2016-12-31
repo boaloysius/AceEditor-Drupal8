@@ -24,24 +24,30 @@ use Drupal\editor\Entity\Editor;
 class AceEditor extends EditorBase {
 
 
-    public function getDefaultSettings() {
-        $settings["default_editor"] = array(
+    public function getForm($settings) {
+
+        $config = \Drupal::config('ace_editor.settings');
+
+
+        return array(
             'theme' => array(
                 '#type' => 'select',
                 '#title' => t('Theme'),
-                '#options' => $this->ace_editor_get_themes(),
+                '#options' => $config->get('theme'),
                 '#attributes' => array(
                     'style' => 'width: 150px;',
                 ),
+                '#default_value' => $settings['theme']?: $config->get('default_theme'),
             ),
             'syntax' => array(
                 '#type' => 'select',
                 '#title' => t('Syntax'),
                 '#description' => t('The syntax that will be highlighted.'),
-                '#options' => $this->ace_editor_get_modes(),
+                '#options' => $config->get('syntax'),
                 '#attributes' => array(
                     'style' => 'width: 150px;',
                 ),
+                '#default_value' => $settings['syntax']?: $config->get('default_syntax'),
             ),
             'height' => array(
                 '#type' => 'textfield',
@@ -51,6 +57,7 @@ class AceEditor extends EditorBase {
                 '#attributes' => array(
                     'style' => 'width: 100px;',
                 ),
+                '#default_value' => $settings['height']?:$config->get('height')
             ),
             'width' => array(
                 '#type' => 'textfield',
@@ -59,37 +66,41 @@ class AceEditor extends EditorBase {
                 '#attributes' => array(
                     'style' => 'width: 100px;',
                 ),
+                '#default_value' => $settings['width']?:$config->get('width')
             ),
-            'font-size' => array(
+            'font_size' => array(
                 '#type' => 'textfield',
                 '#title' => t('Font size'),
                 '#description' => t('The the font size of the editor.'),
                 '#attributes' => array(
                     'style' => 'width: 100px;',
                 ),
+                '#default_value' => $settings['font_size']?:$config->get('font_size')
             ),
             'linehighlighting' => array(
                 '#type' => 'checkbox',
                 '#title' => t('Line highlighting'),
+                '#default_value' => isset($settings['linehighlighting'])? $settings['linehighlighting']:$config->get('linehighlighting')
             ),
-            'line-numbers' => array(
+            'line_numbers' => array(
                 '#type' => 'checkbox',
                 '#title' => t('Show line numbers'),
+                '#default_value' => isset($settings['line_numbers']) ? $settings['line_numbers']:$config->get('line_numbers')
             ),
         );
 
-        return $settings["default_editor"];
     }
 
 
     public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor){
+        $settings = $editor->getSettings();
         $form = array();
-        $form['date_fieldset'] = array(
+        $form['fieldset'] = array(
             '#type' => 'fieldset',
             '#title' => t('Ace Editor Settings'),
-            '#collapsible' => TRUE,
+            '#collapsable' => TRUE
         );
-        $form['date_fieldset'][] = $this->getDefaultSettings();
+        $form['fieldset'] = array_merge($form['fieldset'], $this->getForm($settings['fieldset']));
         return $form;
     }
 
@@ -100,57 +111,41 @@ class AceEditor extends EditorBase {
 
     public function getLibraries(Editor $editor)
     {
-        return array();
+
+        $config = $config = \Drupal::config('ace_editor.settings');
+
+        $theme = trim($editor->getSettings()['fieldset']['theme']);
+        $mode = trim($editor->getSettings()['fieldset']['syntax']);
+
+        $theme_exist =  \Drupal::service('library.discovery')->getLibraryByName('ace_editor', 'theme.'.$theme);
+        $mode_exist =  \Drupal::service('library.discovery')->getLibraryByName('ace_editor', 'mode.'.$mode);
+
+        $libs=array("ace_editor/primary");
+
+        if($theme_exist){
+            $libs[] = "ace_editor/theme.".$theme;
+        }else{
+            $libs[] = "ace_editor/theme.".$config->get('default_theme_value');
+        }
+
+        if($mode_exist){
+            $libs[] = "ace_editor/mode.".$mode;
+        }else{
+            $libs[] = "ace_editor/mode.".$config->get('default_syntax_value');
+        }
+        
+        return $libs;
     }
 
     public function getJSSettings(Editor $editor)
     {
-        return array();
+        return $editor->getSettings()['fieldset'];
     }
 
     public function settingsFormSubmit(array $form, FormStateInterface $form_state) {
         return $form;
     }
 
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    /**
-     * Returns the installed themes.
-     */
-    public function ace_editor_get_themes() {
-        // Available themes are loaded on installation.
-        $assets = array('theme' => array('cobalt' => 'Cobalt'));
-        $themes = $assets['theme'];
-        asort($themes);
-        return $themes;
-    }
-
-    /**
-     * Returns all of the modes.
-     */
-    public function ace_editor_get_modes() {
-        // Available modeses are loaded on installation.
-        $assets = array('mode' => array('html' => 'HTML'));
-        asort($assets['mode']);
-        $modes = array_merge($assets['mode'], array(
-            // Translate some most used languages to their common name.
-            'c_cpp' => 'C/C++',
-            'coffee' => 'CoffeeScript',
-            'csharp' => 'C#',
-            'css' => 'CSS',
-            'html' => 'HTML',
-            'json' => 'JSON',
-            'less' => 'LESS',
-            'php' => 'PHP',
-            'scss' => 'SCSS',
-            'xml' => 'XML',
-            'yaml' => 'YAML',
-        ));
-        return $modes;
-    }
 
 
 

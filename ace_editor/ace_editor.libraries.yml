@@ -1,0 +1,13 @@
+primary:
+  version: VERSION
+  js:
+    js/editor.js: {}
+    libraries/ace/src/ace.js: {}
+
+  css:
+    component:
+      styles/editor.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

@@ -1,0 +1,41 @@
+autocomplete: TRUE
+autowrap: TRUE
+codefolding: 'markbegin'
+invisibles: FALSE
+printmargin: FALSE
+tabsize: 2
+
+
+
+theme:
+  cobalt: 'Cobalt'
+
+default_theme: 'Cobalt'
+default_theme_value: 'cobalt'
+
+syntax:
+  c_cpp: 'C/C++'
+  coffee: 'CoffeeScript'
+  csharp': 'C#'
+  css: 'CSS'
+  html: 'HTML'
+  json: 'JSON'
+  less: 'LESS'
+  php: 'PHP'
+  scss: 'SCSS'
+  xml: 'XML'
+  yaml: 'YAML'
+
+default_syntax: 'html'
+default_syntax_value: 'html'
+
+height: '200px'
+
+width: '100%'
+
+font_size: '12pt'
+
+linehighlighting: TRUE
+
+line_numbers: TRUE
+

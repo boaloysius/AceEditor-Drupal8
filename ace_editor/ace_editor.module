@@ -1,0 +1,38 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: bobyaloysiusjohnson
+ * Date: 26/12/16
+ * Time: 4:33 PM
+ */
+
+/**
+ * implements hook_library_info_build()
+ */
+function ace_editor_library_info_build() {
+
+    $module_path = drupal_get_path('module','ace_editor');
+    $rel_src = "libraries/ace/src";
+    $path = $module_path."/".$rel_src;
+
+
+    $files = file_scan_directory($path,'/(theme|mode)-(.+)\.js$/', array('recurse' => FALSE));
+
+    $libraries = [];
+    foreach ($files as $file_info) {
+
+        $asset = explode('-', $file_info->name);
+        $library_name = $asset[0].".".$asset[1];
+        $libraries[$library_name] = $rel_src."/".$file_info->filename;
+
+    }
+    $libs=[];
+    foreach($libraries as $key => $value){
+        $libs[$key] = [
+            'js' => [
+                $value => []
+            ]
+        ];
+    }
+    return $libs;
+}
