@@ -2,7 +2,21 @@ primary:
   version: VERSION
   js:
     js/editor.js: {}
-    libraries/ace/src/ace.js: {}
+    libraries/ace/src/ace.js: {weight: -2}
+
+  css:
+    component:
+      styles/editor.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+formatter:
+  version: VERSION
+  js:
+    js/formatter.js: {}
+    libraries/ace/src/ace.js: {weight: -2}
 
   css:
     component:

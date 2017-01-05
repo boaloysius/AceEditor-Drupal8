@@ -133,12 +133,13 @@ class AceEditor extends EditorBase {
         }else{
             $libs[] = "ace_editor/mode.".$config->get('default_syntax_value');
         }
-        
+
         return $libs;
     }
 
     public function getJSSettings(Editor $editor)
     {
+        //dpm($editor->getSettings()['fieldset']);
         return $editor->getSettings()['fieldset'];
     }
 

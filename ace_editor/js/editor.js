@@ -13,7 +13,7 @@
     if (Drupal.editors) Drupal.editors.ace_editor = {
         attach: function (element, format) {
             
-            var element = $(element);
+            element = $(element);
             var element_id = element.attr("id");
             var ace_editor_id = element_id+"-ace-editor";
 
