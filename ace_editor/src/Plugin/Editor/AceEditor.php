@@ -97,7 +97,6 @@ class AceEditor extends EditorBase {
     public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor){
 
         $settings = $editor->getSettings();
-        dpm($settings);
 
         $form = array();
 

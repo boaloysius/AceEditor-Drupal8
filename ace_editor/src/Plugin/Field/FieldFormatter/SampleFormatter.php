@@ -128,7 +128,7 @@ class SampleFormatter extends FormatterBase {
                     'ace_formatter' => $settings
                 ),
                 ),
-            '#markup' => "<div class='ace_editor_formatter'>".$item->value."</div>",
+            '#markup' => "<div class='ace_formatter'><div class = 'content'>".$item->value."</div></div>",
 
             );
         }
