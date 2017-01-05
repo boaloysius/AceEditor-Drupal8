@@ -23,31 +23,34 @@ use Drupal\editor\Entity\Editor;
 
 class AceEditor extends EditorBase {
 
+    public function getDefaultSettings() {
+        $config = \Drupal::config('ace_editor.settings')->get();
+        return $config;
+    }
 
     public function getForm($settings) {
 
         $config = \Drupal::config('ace_editor.settings');
 
-
         return array(
             'theme' => array(
                 '#type' => 'select',
                 '#title' => t('Theme'),
-                '#options' => $config->get('theme'),
+                '#options' => $config->get('theme_list'),
                 '#attributes' => array(
                     'style' => 'width: 150px;',
                 ),
-                '#default_value' => $settings['theme']?: $config->get('default_theme'),
+                '#default_value' => $settings['theme'],
             ),
             'syntax' => array(
                 '#type' => 'select',
                 '#title' => t('Syntax'),
                 '#description' => t('The syntax that will be highlighted.'),
-                '#options' => $config->get('syntax'),
+                '#options' => $config->get('syntax_list'),
                 '#attributes' => array(
                     'style' => 'width: 150px;',
                 ),
-                '#default_value' => $settings['syntax']?: $config->get('default_syntax'),
+                '#default_value' => $settings['syntax'],
             ),
             'height' => array(
                 '#type' => 'textfield',
@@ -57,7 +60,7 @@ class AceEditor extends EditorBase {
                 '#attributes' => array(
                     'style' => 'width: 100px;',
                 ),
-                '#default_value' => $settings['height']?:$config->get('height')
+                '#default_value' => $settings['height'],
             ),
             'width' => array(
                 '#type' => 'textfield',
@@ -66,7 +69,7 @@ class AceEditor extends EditorBase {
                 '#attributes' => array(
                     'style' => 'width: 100px;',
                 ),
-                '#default_value' => $settings['width']?:$config->get('width')
+                '#default_value' => $settings['width']
             ),
             'font_size' => array(
                 '#type' => 'textfield',
@@ -75,32 +78,41 @@ class AceEditor extends EditorBase {
                 '#attributes' => array(
                     'style' => 'width: 100px;',
                 ),
-                '#default_value' => $settings['font_size']?:$config->get('font_size')
+                '#default_value' => $settings['font_size']
             ),
             'linehighlighting' => array(
                 '#type' => 'checkbox',
                 '#title' => t('Line highlighting'),
-                '#default_value' => isset($settings['linehighlighting'])? $settings['linehighlighting']:$config->get('linehighlighting')
+                '#default_value' => $settings['linehighlighting']
             ),
             'line_numbers' => array(
                 '#type' => 'checkbox',
                 '#title' => t('Show line numbers'),
-                '#default_value' => isset($settings['line_numbers']) ? $settings['line_numbers']:$config->get('line_numbers')
+                '#default_value' => $settings['line_numbers']
             ),
         );
-
     }
 
 
     public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor){
+
         $settings = $editor->getSettings();
+        dpm($settings);
+
         $form = array();
+
         $form['fieldset'] = array(
             '#type' => 'fieldset',
             '#title' => t('Ace Editor Settings'),
             '#collapsable' => TRUE
         );
-        $form['fieldset'] = array_merge($form['fieldset'], $this->getForm($settings['fieldset']));
+
+        if(array_key_exists('fieldset',$settings)){
+            $form['fieldset'] = array_merge($form['fieldset'], $this->getForm($settings['fieldset']));
+        }else{
+            $form['fieldset'] = array_merge($form['fieldset'], $this->getForm($settings));
+        }
+
         return $form;
     }
 

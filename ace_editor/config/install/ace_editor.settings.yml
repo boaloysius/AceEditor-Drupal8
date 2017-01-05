@@ -7,13 +7,13 @@ tabsize: 2
 
 
 
-theme:
+theme_list:
   cobalt: 'Cobalt'
 
-default_theme: 'Cobalt'
-default_theme_value: 'cobalt'
 
-syntax:
+theme: 'cobalt'
+
+syntax_list:
   c_cpp: 'C/C++'
   coffee: 'CoffeeScript'
   csharp': 'C#'
@@ -26,8 +26,7 @@ syntax:
   xml: 'XML'
   yaml: 'YAML'
 
-default_syntax: 'html'
-default_syntax_value: 'html'
+syntax: 'html'
 
 height: '200px'
 

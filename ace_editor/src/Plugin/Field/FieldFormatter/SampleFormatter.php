@@ -22,67 +22,8 @@ use Drupal\Core\Form\FormStateInterface;
 class SampleFormatter extends FormatterBase {
 
     public static function defaultSettings() {
-        $config = \Drupal::config('ace_editor.settings');
-        return array(
-            'theme' => array(
-                '#type' => 'select',
-                '#title' => t('Theme'),
-                '#options' => $config->get('theme'),
-                '#attributes' => array(
-                    'style' => 'width: 150px;',
-                ),
-                '#default_value' => $config->get('default_theme'),
-            ),
-            'syntax' => array(
-                '#type' => 'select',
-                '#title' => t('Syntax'),
-                '#description' => t('The syntax that will be highlighted.'),
-                '#options' => $config->get('syntax'),
-                '#attributes' => array(
-                    'style' => 'width: 150px;',
-                ),
-                '#default_value' => $config->get('default_syntax'),
-            ),
-            'height' => array(
-                '#type' => 'textfield',
-                '#title' => t('Height'),
-                '#description' => t('The height of the editor in either pixels or percents.
-        You can use "auto" to let the editor calculate the adequate height.'),
-                '#attributes' => array(
-                    'style' => 'width: 100px;',
-                ),
-                '#default_value' => $config->get('height')
-            ),
-            'width' => array(
-                '#type' => 'textfield',
-                '#title' => t('Width'),
-                '#description' => t('The width of the editor in either pixels or percents.'),
-                '#attributes' => array(
-                    'style' => 'width: 100px;',
-                ),
-                '#default_value' => $config->get('width')
-            ),
-            'font_size' => array(
-                '#type' => 'textfield',
-                '#title' => t('Font size'),
-                '#description' => t('The the font size of the editor.'),
-                '#attributes' => array(
-                    'style' => 'width: 100px;',
-                ),
-                '#default_value' => $config->get('font_size')
-            ),
-            'linehighlighting' => array(
-                '#type' => 'checkbox',
-                '#title' => t('Line highlighting'),
-                '#default_value' => $config->get('linehighlighting')
-            ),
-            'line_numbers' => array(
-                '#type' => 'checkbox',
-                '#title' => t('Show line numbers'),
-                '#default_value' => $config->get('line_numbers')
-            ),
-        ) + parent::defaultSettings();
-
+        $config = \Drupal::config('ace_editor.settings')->get();
+        return $config;
     }
 
     /**
@@ -95,29 +36,74 @@ class SampleFormatter extends FormatterBase {
 
     }
 
-    public function getForm() {
-
-        $form = static ::defaultSettings();
-        $settings = $this->getSettings();
-        $default_settings = $config = \Drupal::config('ace_editor.settings');
-        dpm($default_settings->get());
-        foreach ($form as $key => $value){
-            $form[$key]['#default_value'] = $settings[$key]['#default_value'];
-        }
-
-        return $form;
-
-    }
-
 
     /**
     * {@inheritdoc}
     */
     public function settingsForm(array $form, FormStateInterface $form_state) {
-        $ace_formatter_form = $this->getForm();
-        $elements = parent::settingsForm($form, $form_state);
-        return $ace_formatter_form;
 
+        $settings = $this->getSettings();
+        $config = \Drupal::config('ace_editor.settings');
+
+        return array(
+            'theme' => array(
+                '#type' => 'select',
+                '#title' => t('Theme'),
+                '#options' => $config->get('theme_list'),
+                '#attributes' => array(
+                    'style' => 'width: 150px;',
+                ),
+                '#default_value' => $settings['theme'],
+            ),
+            'syntax' => array(
+                '#type' => 'select',
+                '#title' => t('Syntax'),
+                '#description' => t('The syntax that will be highlighted.'),
+                '#options' => $config->get('syntax_list'),
+                '#attributes' => array(
+                    'style' => 'width: 150px;',
+                ),
+                '#default_value' => $settings['syntax'],
+            ),
+            'height' => array(
+                '#type' => 'textfield',
+                '#title' => t('Height'),
+                '#description' => t('The height of the editor in either pixels or percents.
+        You can use "auto" to let the editor calculate the adequate height.'),
+                '#attributes' => array(
+                    'style' => 'width: 100px;',
+                ),
+                '#default_value' => $settings['height'],
+            ),
+            'width' => array(
+                '#type' => 'textfield',
+                '#title' => t('Width'),
+                '#description' => t('The width of the editor in either pixels or percents.'),
+                '#attributes' => array(
+                    'style' => 'width: 100px;',
+                ),
+                '#default_value' => $settings['width']
+            ),
+            'font_size' => array(
+                '#type' => 'textfield',
+                '#title' => t('Font size'),
+                '#description' => t('The the font size of the editor.'),
+                '#attributes' => array(
+                    'style' => 'width: 100px;',
+                ),
+                '#default_value' => $settings['font_size']
+            ),
+            'linehighlighting' => array(
+                '#type' => 'checkbox',
+                '#title' => t('Line highlighting'),
+                '#default_value' => $settings['linehighlighting']
+            ),
+            'line_numbers' => array(
+                '#type' => 'checkbox',
+                '#title' => t('Show line numbers'),
+                '#default_value' => $settings['line_numbers']
+            ),
+        );
 
     }
 
@@ -127,6 +113,7 @@ class SampleFormatter extends FormatterBase {
     public function viewElements(FieldItemListInterface $items, $langcode) {
 
         $elements = array();
+        $settings = $this->getSettings();
         foreach ($items as $delta => $item) {
             $elements[$delta] = array(
             '#type' => 'markup',
@@ -134,11 +121,11 @@ class SampleFormatter extends FormatterBase {
                 '#attached' => array(
                     'library' =>  array(
                         'ace_editor/formatter',
-                        'ace_editor/theme.cobalt',
-                        'ace_editor/mode.html'
+                        'ace_editor/theme.'.$settings['theme'],
+                        'ace_editor/mode.'.$settings['syntax']
                     ),
                 'drupalSettings' => array(
-                    'ace_formatter' => "cobalt"
+                    'ace_formatter' => $settings
                 ),
                 ),
             '#markup' => "<div class='ace_editor_formatter'>".$item->value."</div>",
