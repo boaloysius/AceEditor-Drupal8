@@ -8,6 +8,8 @@
 
 /**
  * implements hook_library_info_build()
+ *
+ * Selects all theme and mode files from ace editor external library and add it to drupal library.
  */
 function ace_editor_library_info_build() {
 
@@ -15,7 +17,7 @@ function ace_editor_library_info_build() {
     $rel_src = "libraries/ace/src";
     $path = $module_path."/".$rel_src;
 
-
+    // Collects all theme and mode file available.
     $files = file_scan_directory($path,'/(theme|mode)-(.+)\.js$/', array('recurse' => FALSE));
 
     $libraries = [];

@@ -11,17 +11,18 @@ use Drupal\Core\Form\FormStateInterface;
 * Plugin implementation of the 'sample_wkt' formatter.
 *
 * @FieldFormatter (
-*   id = "sample_wkt",
-*   label = @Translation("Ace Editor format"),
+*   id = "ace_formatter",
+*   label = @Translation("Ace Format"),
 *   field_types = {
 *     "text_with_summary"
 *   }
 * )
 */
 
-class SampleFormatter extends FormatterBase {
+class AceFormatter extends FormatterBase {
 
     public static function defaultSettings() {
+        // Get default ace_editor configuration
         $config = \Drupal::config('ace_editor.settings')->get();
         return $config;
     }
@@ -43,6 +44,10 @@ class SampleFormatter extends FormatterBase {
     public function settingsForm(array $form, FormStateInterface $form_state) {
 
         $settings = $this->getSettings();
+
+        // $this->getSettings() will return values form defaultSettings() on first use.
+        // afterwards it will return the forms saved configuration.
+
         $config = \Drupal::config('ace_editor.settings');
 
         return array(
@@ -93,6 +98,7 @@ class SampleFormatter extends FormatterBase {
                 ),
                 '#default_value' => $settings['font_size']
             ),
+            /**
             'linehighlighting' => array(
                 '#type' => 'checkbox',
                 '#title' => t('Line highlighting'),
@@ -103,6 +109,7 @@ class SampleFormatter extends FormatterBase {
                 '#title' => t('Show line numbers'),
                 '#default_value' => $settings['line_numbers']
             ),
+             **/
         );
 
     }
@@ -111,13 +118,13 @@ class SampleFormatter extends FormatterBase {
     * {@inheritdoc}
     */
     public function viewElements(FieldItemListInterface $items, $langcode) {
-
+        // Renders front-end of our formatter.
         $elements = array();
         $settings = $this->getSettings();
         foreach ($items as $delta => $item) {
             $elements[$delta] = array(
             '#type' => 'markup',
-
+                // Attach libraries as per the setting.
                 '#attached' => array(
                     'library' =>  array(
                         'ace_editor/formatter',
@@ -125,9 +132,13 @@ class SampleFormatter extends FormatterBase {
                         'ace_editor/mode.'.$settings['syntax']
                     ),
                 'drupalSettings' => array(
+                    // Pass settings variable ace_formatter to javascript.
                     'ace_formatter' => $settings
                 ),
                 ),
+            // div.ace_formatter is container.
+            // div.content is to identity the editor content.
+            // our formatter will be appended to div.ace_formatter
             '#markup' => "<div class='ace_formatter'><div class = 'content'>".$item->value."</div></div>",
 
             );

@@ -14,7 +14,7 @@ use Drupal\editor\Entity\Editor;
  *   label = "Ace Editor",
  *   supports_content_filtering = FALSE,
  *   supports_inline_editing = FALSE,
- *   is_xss_safe = TRUE,
+ *   is_xss_safe = FALSE,
  *   supported_element_types = {
  *     "textarea"
  *   }
@@ -23,10 +23,24 @@ use Drupal\editor\Entity\Editor;
 
 class AceEditor extends EditorBase {
 
+    /**
+     * {@inheritdoc}
+     */
+
     public function getDefaultSettings() {
         $config = \Drupal::config('ace_editor.settings')->get();
         return $config;
     }
+
+    /**
+     * Returns a settings form to configure this text editor.
+     *
+     * @param array $settings
+     *   An array containing form configuration.
+     *
+     * @return array
+     *   A primary render array for the settings form.
+     */
 
     public function getForm($settings) {
 
@@ -80,6 +94,7 @@ class AceEditor extends EditorBase {
                 ),
                 '#default_value' => $settings['font_size']
             ),
+            /**
             'linehighlighting' => array(
                 '#type' => 'checkbox',
                 '#title' => t('Line highlighting'),
@@ -90,9 +105,13 @@ class AceEditor extends EditorBase {
                 '#title' => t('Show line numbers'),
                 '#default_value' => $settings['line_numbers']
             ),
+             **/
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
 
     public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor){
 
@@ -115,44 +134,62 @@ class AceEditor extends EditorBase {
         return $form;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+
     public function settingsFormValidate(array $form, FormStateInterface $form_state) {
 
     }
 
+    /**
+     * {@inheritdoc}
+     */
 
     public function getLibraries(Editor $editor)
     {
-
+        // Get default ace_editor configutaion.
         $config = $config = \Drupal::config('ace_editor.settings');
 
+        // Get theme and mode
         $theme = trim($editor->getSettings()['fieldset']['theme']);
         $mode = trim($editor->getSettings()['fieldset']['syntax']);
 
+        // Check if theme and mode library exist.
         $theme_exist =  \Drupal::service('library.discovery')->getLibraryByName('ace_editor', 'theme.'.$theme);
         $mode_exist =  \Drupal::service('library.discovery')->getLibraryByName('ace_editor', 'mode.'.$mode);
 
+        // ace_editor/primary the basic library for ace_editor.
         $libs=array("ace_editor/primary");
 
         if($theme_exist){
             $libs[] = "ace_editor/theme.".$theme;
         }else{
-            $libs[] = "ace_editor/theme.".$config->get('default_theme_value');
+            $libs[] = "ace_editor/theme.".$config->get('theme');
         }
 
         if($mode_exist){
             $libs[] = "ace_editor/mode.".$mode;
         }else{
-            $libs[] = "ace_editor/mode.".$config->get('default_syntax_value');
+            $libs[] = "ace_editor/mode.".$config->get('syntax');
         }
 
         return $libs;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+
     public function getJSSettings(Editor $editor)
     {
-        //dpm($editor->getSettings()['fieldset']);
+        // Pass settings to javascript.
         return $editor->getSettings()['fieldset'];
     }
+
+    /**
+     * {@inheritdoc}
+     */
 
     public function settingsFormSubmit(array $form, FormStateInterface $form_state) {
         return $form;

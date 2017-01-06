@@ -191,11 +191,11 @@ syntax_list:
 
 syntax: 'html'
 
-height: '200px'
+height: '500px'
 
-width: '100%'
+width: '700px'
 
-font_size: '12pt'
+font_size: '10pt'
 
 linehighlighting: TRUE
 
