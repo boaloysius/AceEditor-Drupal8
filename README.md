@@ -1,6 +1,6 @@
 # AceEditor-Drupal8
 This project port <a href="https://www.drupal.org/project/ace_editor">Ace Editor module for Drupal 7</a> to Drupal 8.
-<a href="https://ace.c9.io/#nav=about">Ace Editor Library</a>
+<br><a href="https://ace.c9.io/#nav=about">Ace Editor Library</a>
 <h2>Components</h2>
   <ul>
   <li>Ace Editor</li>
@@ -24,6 +24,6 @@ This project port <a href="https://www.drupal.org/project/ace_editor">Ace Editor
   <li>Change the formatter settings if needed.</li>
   <li>Click update and Save Settings both</li>
   <li>Goto to corresponding saved content eg: article</li>
-  <li>You can see the read_only appearing</li>
+  <li>You can see the read_only Ace Formatter appearing</li>
 </ul>
 </div>
