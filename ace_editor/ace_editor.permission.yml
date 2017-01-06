@@ -1,3 +1,0 @@
-administer ace_editor:
-  title: 'Administer AceEditor'
-  restrict access: true
