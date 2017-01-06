@@ -123,23 +123,27 @@ class AceFormatter extends FormatterBase {
         $settings = $this->getSettings();
         foreach ($items as $delta => $item) {
             $elements[$delta] = array(
-            '#type' => 'markup',
+            '#type' => 'textarea',
+            '#value' => t($item->value),
                 // Attach libraries as per the setting.
-                '#attached' => array(
-                    'library' =>  array(
-                        'ace_editor/formatter',
-                        'ace_editor/theme.'.$settings['theme'],
-                        'ace_editor/mode.'.$settings['syntax']
-                    ),
-                'drupalSettings' => array(
-                    // Pass settings variable ace_formatter to javascript.
-                    'ace_formatter' => $settings
-                ),
-                ),
-            // div.ace_formatter is container.
-            // div.content is to identity the editor content.
-            // our formatter will be appended to div.ace_formatter
-            '#markup' => "<div class='ace_formatter'><div class = 'content'>".$item->value."</div></div>",
+            '#attached' => array(
+                'library' =>  array(
+                    'ace_editor/formatter',
+                    'ace_editor/theme.'.$settings['theme'],
+                    'ace_editor/mode.'.$settings['syntax']
+                 ),
+                 'drupalSettings' => array(
+                     // Pass settings variable ace_formatter to javascript.
+                     'ace_formatter' => $settings
+                 ),
+            ),
+            '#attributes'=>array(
+                "class" => array("content"),
+                "readonly" => "readonly",
+            ),
+            '#prefix' => "<div class='ace_formatter'>",
+            '#suffix' => "<div>",
+
 
             );
         }

@@ -24,9 +24,9 @@
                     container.append("<div id='" + display_id + "'></div>");
                 }
 
-                // Selecting the conten
-                var content = container.children(".content:first");
-
+                // Selecting the content
+                var content = container.find(".content:first");
+                console.log(content.val());
                 // Content is hided insted of deleting.
                 content.hide();
 
@@ -40,7 +40,7 @@
                 editor.setReadOnly(true);
                 editor.setTheme("ace/theme/"+theme);
                 editor.getSession().setMode("ace/mode/"+mode);
-                editor.getSession().setValue(content.html());
+                editor.getSession().setValue(content.val());
                 $("#"+display_id).height(ace_settings.height).width(ace_settings.width);
 
                 editor.setOptions({
