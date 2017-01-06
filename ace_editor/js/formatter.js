@@ -26,7 +26,6 @@
 
                 // Selecting the content
                 var content = container.find(".content:first");
-                console.log(content.val());
                 // Content is hided insted of deleting.
                 content.hide();
 
