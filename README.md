@@ -5,6 +5,7 @@ This project port <a href="https://www.drupal.org/project/ace_editor">Ace Editor
   <ul>
   <li>Ace Editor</li>
   <li>Ace Formatter</li>
+  <li>Ace Filter</li>
   </ul>
 <div>
   <h2>How to use this module</h2>
@@ -25,5 +26,7 @@ This project port <a href="https://www.drupal.org/project/ace_editor">Ace Editor
   <li>Click update and Save Settings both</li>
   <li>Goto to corresponding saved content eg: article</li>
   <li>You can see the read_only Ace Formatter appearing</li>
+  
+  <li><h3>Filter</h3></li>
 </ul>
 </div>
