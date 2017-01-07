@@ -25,3 +25,17 @@ formatter:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+
+filter:
+  version: VERSION
+  js:
+    js/filter.js: {}
+    libraries/ace/src/ace.js: {weight: -2}
+
+  css:
+    component:
+      styles/editor.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
