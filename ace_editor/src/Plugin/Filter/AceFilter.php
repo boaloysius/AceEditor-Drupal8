@@ -148,7 +148,7 @@ class AceFilter extends FilterBase {
 
         }
 
-        $result = new FilterProcessResult("Not found");
+        $result = new FilterProcessResult($text);
         return $result;
     }
 
