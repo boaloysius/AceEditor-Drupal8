@@ -123,9 +123,17 @@ class AceFilter extends FilterBase {
                 $replace = '<pre id="' . $element_id . '"></pre>';
                 // Override settings with attributes on the tag.
                 $settings = $this->getConfiguration()->settings;
+                $attach_lib = array();
 
                 foreach ($this->tag_attributes('ace', $value) as $attribute_key => $attribute_value) {
                     $settings[$attribute_key] = $attribute_value;
+
+                    if($attribute_key == "theme" && \Drupal::service('library.discovery')->getLibraryByName('ace_editor', 'theme.'.$attribute_value)){
+                        $attach_lib[] = "ace_editor/theme.".$attribute_value;
+                    }
+                    if($attribute_key == "syntax" && \Drupal::service('library.discovery')->getLibraryByName('ace_editor', 'mode.'.$attribute_value)){
+                        $attach_lib[] = "ace_editor/mode.".$attribute_value;
+                    }
                 }
 
                 $js_settings['instances'][] = array(
@@ -137,8 +145,9 @@ class AceFilter extends FilterBase {
             }
 
             $result = new FilterProcessResult($text);
+            $attach_lib[] = 'ace_editor/filter';
             $result->setAttachments(array(
-                'library' => array('ace_editor/filter'),
+                'library' => $attach_lib,
                 'drupalSettings' => array(
                     // Pass settings variable ace_formatter to javascript.
                     'ace_filter' => $js_settings

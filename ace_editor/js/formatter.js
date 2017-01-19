@@ -43,8 +43,10 @@
                 $("#"+display_id).height(ace_settings.height).width(ace_settings.width);
 
                 editor.setOptions({
-                    fontSize: ace_settings.font_size,
-                    showLineNumbers: ace_settings.line_numbers ? true : false
+                    fontSize: ace_settings.font_size ? ace_settings.font_size : '10px',
+                    showLineNumbers: ace_settings.line_numbers ? true : false,
+                    showPrintMargin: ace_settings.print_margin ? true: false,
+                    showInvisibles: ace_settings.show_invisibles ? true: false
                 });
 
             });
