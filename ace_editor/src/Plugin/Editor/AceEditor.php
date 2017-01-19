@@ -12,8 +12,7 @@ use Drupal\editor\Entity\Editor;
  * @Editor(
  *   id = "ace_editor",
  *   label = "Ace Editor",
- *   supports_content_filtering = FALSE,
- *   supports_inline_editing = FALSE,
+ *   supports_content_filtering = TRUE,
  *   is_xss_safe = FALSE,
  *   supported_element_types = {
  *     "textarea"

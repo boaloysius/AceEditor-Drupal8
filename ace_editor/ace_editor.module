@@ -14,7 +14,7 @@
 function ace_editor_library_info_build() {
 
     $module_path = drupal_get_path('module','ace_editor');
-    $rel_src = "libraries/ace/src";
+    $rel_src = "libraries/ace/src-noconflict";
     $path = $module_path."/".$rel_src;
 
     // Collects all theme and mode file available.

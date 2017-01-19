@@ -124,7 +124,7 @@ class AceFormatter extends FormatterBase {
         foreach ($items as $delta => $item) {
             $elements[$delta] = array(
             '#type' => 'textarea',
-            '#value' => t($item->value),
+            '#value' => $item->value,
                 // Attach libraries as per the setting.
             '#attached' => array(
                 'library' =>  array(

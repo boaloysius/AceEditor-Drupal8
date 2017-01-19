@@ -2,7 +2,7 @@ primary:
   version: VERSION
   js:
     js/editor.js: {}
-    libraries/ace/src/ace.js: {weight: -2}
+    libraries/ace/src-noconflict/ace.js: {weight: -2}
 
   css:
     component:
@@ -16,7 +16,7 @@ formatter:
   version: VERSION
   js:
     js/formatter.js: {}
-    libraries/ace/src/ace.js: {weight: -2}
+    libraries/ace/src-noconflict/ace.js: {weight: -2}
 
   css:
     component:
@@ -30,7 +30,7 @@ filter:
   version: VERSION
   js:
     js/filter.js: {}
-    libraries/ace/src/ace.js: {weight: -2}
+    libraries/ace/src-noconflict/ace.js: {weight: -2}
 
   css:
     component:

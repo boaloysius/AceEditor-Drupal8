@@ -108,6 +108,7 @@ class AceFilter extends FilterBase {
 
     public function process($text, $langcode) {
 
+        $text = html_entity_decode($text);
 
         if (preg_match_all("/<ace.*?>(.*?)\s*<\/ace>/s", $text, $match)) {
             $js_settings = array(
