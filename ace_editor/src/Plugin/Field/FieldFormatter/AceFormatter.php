@@ -110,9 +110,16 @@ class AceFormatter extends FormatterBase {
             ),
             'show_invisibles' => array(
                 '#type' => 'checkbox',
-                '#title' => t('Show ... for better code matching'),
+                '#title' => t('Show partially visible ... for better code matching'),
                 '#default_value' => $settings['show_invisibles']
             ),
+            /**
+            'auto_complete' => array(
+                '#type' => 'checkbox',
+                '#title' => t('Enable AutoComplete'),
+                '#default_value' => $settings['auto_complete']
+            ),
+            **/
         );
 
     }

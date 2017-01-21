@@ -105,10 +105,16 @@ class AceEditor extends EditorBase {
             ),
             'show_invisibles' => array(
                 '#type' => 'checkbox',
-                '#title' => t('Show ... for better code matching'),
+                '#title' => t('Show partially visible ... for better code matching'),
                 '#default_value' => $settings['show_invisibles']
             ),
-
+            /**
+            'auto_complete' => array(
+                '#type' => 'checkbox',
+                '#title' => t('Enable AutoComplete'),
+                '#default_value' => $settings['auto_complete']
+            ),
+            **/
         );
     }
 
@@ -119,7 +125,7 @@ class AceEditor extends EditorBase {
     public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor){
 
         $settings = $editor->getSettings();
-        
+
         $form = array();
 
         $form['fieldset'] = array(

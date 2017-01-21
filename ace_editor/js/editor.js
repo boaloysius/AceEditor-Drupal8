@@ -39,7 +39,8 @@
                 fontSize: format.editorSettings.font_size ? format.editorSettings.font_size : '10px',
                 showLineNumbers: format.editorSettings.line_numbers ? true : false,
                 showPrintMargin: format.editorSettings.print_margin ? true: false,
-                showInvisibles: format.editorSettings.show_invisibles ? true: false
+                showInvisibles: format.editorSettings.show_invisibles ? true: false,
+                enableBasicAutocompletion: format.editorSettings.auto_complete ? true: false
             });
 
             return !!current_editor;

@@ -1,12 +1,3 @@
-autocomplete: TRUE
-autowrap: TRUE
-codefolding: 'markbegin'
-invisibles: 0
-printmargin: 0
-tabsize: 2
-
-
-
 theme_list:
   cobalt: 'Cobalt'
   ambiance: 'Ambiance'
@@ -199,6 +190,8 @@ font_size: '10pt'
 
 line_numbers: TRUE
 
-show_invisibles: TRUE
+show_invisibles: FALSE
 
 print_margins: TRUE
+
+auto_complete: TRUE
