@@ -93,18 +93,22 @@ class AceEditor extends EditorBase {
                 ),
                 '#default_value' => $settings['font_size']
             ),
-            /**
-            'linehighlighting' => array(
-                '#type' => 'checkbox',
-                '#title' => t('Line highlighting'),
-                '#default_value' => $settings['linehighlighting']
-            ),
             'line_numbers' => array(
                 '#type' => 'checkbox',
                 '#title' => t('Show line numbers'),
                 '#default_value' => $settings['line_numbers']
             ),
-             **/
+            'print_margins' => array(
+                '#type' => 'checkbox',
+                '#title' => t('Print Margins'),
+                '#default_value' => $settings['print_margins']
+            ),
+            'show_invisibles' => array(
+                '#type' => 'checkbox',
+                '#title' => t('Show ... for better code matching'),
+                '#default_value' => $settings['show_invisibles']
+            ),
+
         );
     }
 
@@ -115,7 +119,7 @@ class AceEditor extends EditorBase {
     public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor){
 
         $settings = $editor->getSettings();
-
+        
         $form = array();
 
         $form['fieldset'] = array(

@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * Verifies Ace library is present.
+ */
+function ace_editor_lib_path() {
+  $lib_path = drupal_get_path('module','ace_editor').'/libraries/ace';
+  if (file_exists($lib_path.'/src-noconflict/ace.js')) {
+    return $lib_path;
+  }
+  return FALSE;
+}
+
+
+/**
+ * Implements hook_enable().
+ */
+function ace_editor_install() {
+  if (!ace_editor_lib_path()){
+    drupal_set_message(t('Ace library is missing. Please download it from <a href="@link">Ace Editor Page</a>. Once downloaded move it to /site/modules/ace_editor/libraries/ace/ so that you have the following path /site/modules/ace_editor/libraries/ace/src-noconfilct/ace.js', array('@link' => 'https://github.com/ajaxorg/ace-builds')), 'warning');
+  }else{
+    drupal_set_message(t('Found library at @location', array('@location' =>ace_editor_lib_path() )));
+  }
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function ace_editor_requirements($phase) {
+  $requirements = array();
+  if ($phase == 'runtime') {
+    $requirements['ace_editor']['title'] = t('Ace library');
+
+    if (ace_editor_lib_path()) {
+      $requirements['ace_editor']['value'] = t('Installed at @location', array('@location' => ace_editor_lib_path() ));
+      $requirements['ace_editor']['severity'] = REQUIREMENT_OK;
+    }
+    else {
+      $requirements['ace_editor']['value'] = t('Not installed');
+      $requirements['ace_editor']['severity'] = REQUIREMENT_ERROR;
+      $requirements['ace_editor']['description'] = t('Please download the Ace library from :url.', array(':url' => 'https://github.com/ajaxorg/ace-builds'));
+    }
+
+  }
+  return $requirements;
+}
+
