@@ -28,5 +28,12 @@ This project port <a href="https://www.drupal.org/project/ace_editor">Ace Editor
   <li>You can see the read_only Ace Formatter appearing</li>
   
   <li><h3>Filter</h3></li>
+  <li><h4>Embed code snippets in the body of your nodes or blocks</h4></li>
+  <li>Add the syntax highlighting filter to any of your text formats. The module will now convert all content inside an &lt;ace&gt; tag to display the code using the selected options.</li>
+  <li>You can override the default options by adding attributes to the &lt;ace&gt; tag, for example:</li>
+
+  <li>&lt;ace&gt; theme="twilight" height="200px" font-size="12pt" print-margin="1">SOME CODE&lt;/ace&gt;
+
+</li>
 </ul>
 </div>
