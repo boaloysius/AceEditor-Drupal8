@@ -1,5 +1,20 @@
 # AceEditor-Drupal8
 This project port <a href="https://www.drupal.org/project/ace_editor">Ace Editor module for Drupal 7</a> to Drupal 8.
+<div>
+
+  <h3>Edit HTML and PHP in your nodes and blocks like a pro</h3>
+
+  <h3>Display fields using syntax highlighting</h3>
+  <p>Manage the display of any textarea fields attached to a node and select the "Code syntax highlighting" format. This outputs the content of the field as a ready-only editor with syntax highlighting in your node view using the selected options</p>
+
+  <h3>Embed code snippets in the body of your nodes or blocks</h3>
+  <p>Add the syntax highlighting filter to any of your text formats. The module will now convert all content inside an &lt;ace&gt; tag to display the code using the selected options.</p>
+
+  <p>You can override the default options by adding attributes to the &lt;ace&gt; tag, for example:</p>
+
+  &lt;ace theme="twilight" height="200px" font-size="12pt" print-margin="1"&gt;SOME CODE&lt;/ace&gt;
+
+</div>
 <br><a href="https://ace.c9.io/#nav=about">Ace Editor Library</a>
 <h2>Components</h2>
   <ul>
