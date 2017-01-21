@@ -1,5 +1,16 @@
 # AceEditor-Drupal8
-This project port <a href="https://www.drupal.org/project/ace_editor">Ace Editor module for Drupal 7</a> to Drupal 8.
+<h2>Project Description</h2>
+<p>This project port <a href="https://www.drupal.org/project/ace_editor">Ace Editor module for Drupal 7</a> to Drupal 8. Ace is a code editor written in JavaScript, allowing you to edit HTML, PHP and JavaScript (and more). in a very natural way. It provides syntax highlighting, proper indentation, keyboard shortcuts, auto-completion, code folding, find and replace (including regular expressions). Try out a demo of the editor here.</p>
+
+<p>This module integrates the Ace editor into Drupal's node/block edit forms, for editing raw HTML/PHP/JavaScript etc. in a familiar way.</p>
+<ul>
+  <li> <h3>It supports:</h3>
+
+  <li>node edit forms, including summary</li>
+  <li>blocks and beans edit forms</li>
+  <li>Panels pane editor</li>
+  <li>It also provides a display formatter, along with a text filter and an API to embed and show code snippets in your content.</li>
+<ul>
 <div>
 
   <h3>Edit HTML and PHP in your nodes and blocks like a pro</h3>
